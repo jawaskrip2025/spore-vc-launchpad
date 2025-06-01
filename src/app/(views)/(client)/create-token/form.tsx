@@ -18,6 +18,7 @@ import { useFieldArray, useForm } from "react-hook-form"
 import { toast } from 'sonner'
 
 export default function FormToken() {
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
   const [file, setFile] = useState<File | null>(null)
 
@@ -62,12 +63,16 @@ export default function FormToken() {
   //   return url;
   // }
   async function onSubmit(values: TFormToken) {
+    setLoading(true)
     console.log(values)
     console.log(file)
-    toast.success('Success', {
-      description:"Success Create Data (Simulation Only)"
-    })
-    router.back()
+    setTimeout(() => {
+      router.back()
+      toast.success('Success', {
+        description:"Success Create Data (Simulation Only)"
+      })
+      setLoading(false)
+    }, 1000);
     // const fileUrl = await uploadFile()
     // const newValues = {
     //   ...values,
@@ -189,8 +194,11 @@ export default function FormToken() {
           <div className="flex items-center gap-2 justify-end sticky bottom-0 py-3">
             <Button onClick={() => router.back()} variant={"outline"} size={"lg"} type="button">Cancel</Button>
             <Button disabled={
-              totalPercent !== 100
-            } size={"lg"} type="submit">Submit</Button>
+              totalPercent !== 100 || loading
+            } size={"lg"} type="submit">
+              {loading && <Icon name='mingcute:loading-3-fill' className='animate-spin' />}
+              Submit
+            </Button>
 
           </div>
         </form>
