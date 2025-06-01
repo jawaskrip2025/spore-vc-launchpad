@@ -15,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useFieldArray, useForm } from "react-hook-form"
+import { toast } from 'sonner'
 
 export default function FormToken() {
   const router = useRouter()
@@ -62,6 +63,11 @@ export default function FormToken() {
   // }
   async function onSubmit(values: TFormToken) {
     console.log(values)
+    console.log(file)
+    toast.success('Success', {
+      description:"Success Create Data (Simulation Only)"
+    })
+    router.back()
     // const fileUrl = await uploadFile()
     // const newValues = {
     //   ...values,

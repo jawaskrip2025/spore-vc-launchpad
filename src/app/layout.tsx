@@ -3,6 +3,7 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 const openSans = Open_Sans({
   subsets: ['latin'],
   variable: '--font-open-sans',
@@ -33,6 +34,7 @@ export default function RootLayout({
           <ReactQueryProvider>
             {children}
           </ReactQueryProvider>
+          <Toaster richColors />
         </ThemeProvider>
       </body>
     </html>
