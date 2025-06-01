@@ -3,6 +3,8 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
+import NextTopLoader from 'nextjs-toploader';
 const openSans = Open_Sans({
   subsets: ['latin'],
   variable: '--font-open-sans',
@@ -24,6 +26,7 @@ export default function RootLayout({
       <body
         className={`${openSans.className} antialiased`}
       >
+        <NextTopLoader color="#1B8DFA" />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -33,6 +36,7 @@ export default function RootLayout({
           <ReactQueryProvider>
             {children}
           </ReactQueryProvider>
+          <Toaster richColors />
         </ThemeProvider>
       </body>
     </html>
