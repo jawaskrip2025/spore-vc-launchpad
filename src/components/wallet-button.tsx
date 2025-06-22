@@ -22,7 +22,7 @@ export default function WalletButton({ withText }: { withText?: boolean }) {
           isConnected ? (
             <WalletButtonConnected />
           ) : (
-            <>
+              <>
               <Button disabled={connecting} onClick={handleConnect} className='hidden md:flex'>
                 <Icon name='solar:wallet-2-bold' />
                 <p>Connect</p>

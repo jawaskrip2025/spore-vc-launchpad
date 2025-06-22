@@ -9,3 +9,10 @@ export const cutString = (data: string, count: number) => {
   const L = data.slice(-count);
   return F ? `${F}...${L}` : "-";
 }
+
+export function NumberComma(data: number) {
+  const r = new Intl.NumberFormat('en-US', {
+    currency: 'USD',
+  });
+  return r.format(data)
+}
