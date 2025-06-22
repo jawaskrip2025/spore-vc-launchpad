@@ -25,3 +25,18 @@ export const categories = [
     ],
   }
 ]
+export const units = [
+  {
+    label: 'Token',
+    options: [
+      {
+        label: 'USDT',
+        value: 'USDT',
+      },
+      {
+        label: 'USDC',
+        value: 'USDC',
+      },
+    ],
+  }
+]
