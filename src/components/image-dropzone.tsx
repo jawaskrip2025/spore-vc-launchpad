@@ -48,7 +48,7 @@ export function ImageDropzone({
     <div
       {...getRootProps()}
       className={cn(
-        'flex flex-col hover:bg-slate-100 hover:dark:bg-slate-900 items-center justify-center aspect-square border border-dashed rounded-md overflow-hidden cursor-pointer transition',
+        'flex flex-col hover:bg-slate-100 hover:dark:bg-slate-900 items-center justify-center border border-dashed rounded-md overflow-hidden cursor-pointer transition',
         isDragActive ? 'border-cyan-400 bg-cyan-50' : 'border-gray-300',
         className
       )}
@@ -60,7 +60,7 @@ export function ImageDropzone({
           alt="Preview"
           width={200}
           height={200}
-          className="object-cover"
+          className="object-contain w-full h-full"
         />
       ) : (
         <div className="text-center text-sm text-gray-500">
