@@ -10,12 +10,14 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
 import { cutString } from "@/lib/utils"
+import { useLogout } from "@/modules/auth/auth.query"
 import { useWeb3AuthDisconnect } from "@web3auth/modal/react"
 import { useRouter } from "next/navigation"
 import { useAccount } from "wagmi"
 import { Icon } from "./icon"
 
 export function WalletButtonConnected() {
+  const { mutate: logout } = useLogout()
   const router = useRouter()
   const {
     disconnect,
@@ -24,6 +26,7 @@ export function WalletButtonConnected() {
   const { address } = useAccount();
   async function handleDisconnect() {
     await disconnect()
+    logout()
     router.refresh()
   }
   return (
