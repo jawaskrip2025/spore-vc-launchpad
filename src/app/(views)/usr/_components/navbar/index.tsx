@@ -1,0 +1,22 @@
+'use client'
+import { ModeToggle } from '@/components/mode-toggle'
+import SidemnuToggle from '@/components/sidemnu-toggle'
+import WalletButton from '@/components/wallet-button'
+import React from 'react'
+
+export default function NavbarAdmin() {
+  return (
+    <nav className='px-2 z-30 sticky top-0 bg-slate-100/30 dark:bg-neutral-950/30 backdrop-blur'>
+      <div className="container h-[70px] flex items-center">
+        <div className='flex-1'>
+          <h1 className='text-xl text-balance font-medium'>Dashboard</h1>
+        </div>
+        <div className='flex items-center gap-2'>
+          <ModeToggle />
+          <SidemnuToggle />
+          <WalletButton />
+        </div>
+      </div>
+    </nav>
+  )
+}

@@ -40,7 +40,8 @@ type SelectInputProps<T extends FieldValues> = {
   placeholder?: string
   groups: Group[]
   className?: string,
-  control: Control<T>
+  control: Control<T>,
+  onChangeValue?: (value: string) => void
 }
 
 export function FormSelect<T extends FieldValues>({
@@ -49,7 +50,8 @@ export function FormSelect<T extends FieldValues>({
   placeholder = 'Select an option',
   groups,
   className,
-  control
+  control,
+  onChangeValue
 }: SelectInputProps<T>) {
   // const { control } = useFormContext()
   return (
@@ -60,7 +62,13 @@ export function FormSelect<T extends FieldValues>({
         <FormItem>
           {label && <FormLabel>{label}</FormLabel>}
           <FormControl>
-            <Select value={field.value} onValueChange={field.onChange}>
+            <Select
+              value={field.value}
+              onValueChange={(val) => {
+                field.onChange(val)
+                onChangeValue?.(val)
+              }}
+            >
               <SelectTrigger className={cn(
                 'w-full',
                 'focus-visible:ring-blue-200/50 focus-visible:border-blue-200/50',

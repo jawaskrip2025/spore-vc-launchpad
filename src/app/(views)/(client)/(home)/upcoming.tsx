@@ -9,8 +9,6 @@ import { Fragment } from 'react'
 
 export default function Upcoming() {
   const { data } = useMyToken()
-
-  console.log({ data })
   return (
     <section className='py-12 md:py-24 bg-primary-foreground/10'>
       <div className="container">

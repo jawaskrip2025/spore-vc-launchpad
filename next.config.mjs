@@ -7,9 +7,26 @@ const nextConfig = {
     BASE_URL: process.env.BASE_URL,
   },
   images: {
-    domains: [
-      'maroon-delicate-coyote-528.mypinata.cloud',
-    ],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'maroon-delicate-coyote-528.mypinata.cloud',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'api-dev.e-wow.my.id',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '8000',
+        pathname: '/**',
+      },
+    ]
   },
 };
 
