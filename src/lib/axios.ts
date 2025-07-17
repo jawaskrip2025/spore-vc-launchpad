@@ -77,7 +77,7 @@ axiosInstance.interceptors.response.use(
         Cookies.remove('token');
         Cookies.remove('refreshtoken');
 
-        window.location.href = '/login';
+        window.location.href = '/';
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
