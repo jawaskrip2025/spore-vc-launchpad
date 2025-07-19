@@ -15,6 +15,10 @@ const nextConfig = {
         pathname: '/**',
       },
       {
+        hostname: 'copper-random-mammal-506.mypinata.cloud',
+        protocol: 'https',
+      },
+      {
         protocol: 'https',
         hostname: 'api-dev.e-wow.my.id',
         port: '',
