@@ -7,7 +7,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 export default function Upcoming() {
-  // const { data } = useMyToken()
   const { data: upcoming } = useProject({ status: 'PENDING' })
   return (
     <section className='py-12 md:py-24 bg-primary-foreground/10'>
