@@ -16,3 +16,13 @@ export function NumberComma(data: number) {
   });
   return r.format(data)
 }
+
+export const toUrlAsset = (path: string) => {
+  if (path.startsWith('http')) {
+    return path
+  } else {
+    const baseUrl = process.env.BASE_URL;
+    return `${baseUrl}/${path}`
+
+  }
+}

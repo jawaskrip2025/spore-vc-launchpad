@@ -1,8 +1,8 @@
 "use client";
-import { useMutation } from "@tanstack/react-query";
-import authService from "./auth.service";
 import { TRequestNonce, TVerifySignature } from "@/types/auth";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import Cookies from 'js-cookie';
+import authService from "./auth.service";
 export const useRequestNonce = () => {
   return useMutation({
     mutationFn: (data: TRequestNonce) => authService.REQUEST_NONCE(data),
@@ -34,3 +34,16 @@ export const useLogout = () => {
     }
   });
 }
+
+export const useCheckAuth = () => {
+  const queryChain = useQuery({
+    queryKey: ["check_auth"],
+    queryFn: () => {
+      const token = Cookies.get('token')
+      return !!token
+    },
+    enabled: true
+  });
+  return queryChain
+}
+

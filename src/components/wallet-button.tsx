@@ -1,41 +1,65 @@
 'use client'
 import { cn } from '@/lib/utils'
-import { useWeb3AuthConnect } from '@web3auth/modal/react'
+import { useWeb3AuthConnect, useWeb3AuthDisconnect } from '@web3auth/modal/react'
 import { Icon } from './icon'
 import { Button } from './ui/button'
 import { WalletButtonConnected } from './wallet-button-connected'
 
 import { useRequestNonce, useVerifySignature } from '@/modules/auth/auth.query'
 import { Web3Provider } from '@ethersproject/providers'
+import { useRouter } from 'next/navigation'
 export default function WalletButton({ withText }: { withText?: boolean }) {
+  const router = useRouter()
   const {
     connect,
     isConnected,
     loading: connecting,
   } = useWeb3AuthConnect();
+  const { disconnect } = useWeb3AuthDisconnect()
   const { mutate: requestNonce } = useRequestNonce()
   const { mutate: verifySignature } = useVerifySignature()
 
   async function handleConnect() {
-    
-    const web3Provider = await connect();
-    if (!web3Provider) return;
-    const result = await web3Provider.request({ method: 'eth_accounts' });
-    const accounts = Array.isArray(result) ? result as string[] : [];
-    const address = accounts[0];
+    try {
+      const web3Provider = await connect();
+      if (!web3Provider) return;
+      const result = await web3Provider.request({ method: 'eth_accounts' });
+      const accounts = Array.isArray(result) ? result as string[] : [];
+      const address = accounts[0];
 
-    requestNonce({ walletAddress: address }, {
-      onSuccess: async (data) => {
-        const nonce = data.data.nonce;
-        const provider = new Web3Provider(web3Provider)
-        const signer = provider.getSigner()
-        const signature = await signer.signMessage(nonce)
-        verifySignature({
-          walletAddress: address,
-          signature: signature
-        })
+      requestNonce({ walletAddress: address }, {
+        onSuccess: async (data) => {
+          try {
+            const nonce = data.data.nonce;
+            const provider = new Web3Provider(web3Provider);
+            const signer = provider.getSigner();
+            const signature = await signer.signMessage(nonce);
+
+            verifySignature({
+              walletAddress: address,
+              signature,
+            }, {
+              onSuccess: () => {
+                router.push('/usr')
+              }
+            });
+          } catch (err: any) {
+            if (err.code === 4001) {
+              disconnect()
+            } else {
+              console.error("❌ Error signing message", err);
+            }
+          }
+        }
+      })
+    } catch (error:any) {
+      if (error.code === 4001) {
+        console.warn("🛑 User rejected wallet connection");
+      } else {
+        console.error("❌ Error during wallet connection", error);
       }
-    })
+    }
+
   }
   return (
     <div>
