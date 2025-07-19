@@ -10,6 +10,12 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'copper-random-mammal-506.mypinata.cloud',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
         hostname: 'maroon-delicate-coyote-528.mypinata.cloud',
         port: '',
         pathname: '/**',
