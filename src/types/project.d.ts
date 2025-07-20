@@ -1,15 +1,19 @@
 import {
   allocationSchema,
+  formBuyPresale,
   formCreateProjectSchema,
   formFilterProjectSchema,
   presalesSchema
 } from "@/modules/project/project.schema";
 import { TCategory } from "./category";
+import { TSocial } from "./social";
+import { TChain } from "./chain";
 
 export type TFormProject = z.infer<typeof formCreateProjectSchema>
 export type TFormProjectAllocation = z.infer<typeof allocationSchema>
 export type TFormProjectPresale = z.infer<typeof presalesSchema>
 export type TFormFilterProject = z.infer<typeof formFilterProjectSchema>
+export type TFormBuyPresale = z.infer<typeof formBuyPresale>
 
 type TAllocation = {
   id: string
@@ -19,7 +23,7 @@ type TAllocation = {
   startDate: string
   isPresale: boolean,
 }
-type TPresale = {
+export type TPresale = {
   id: string
   hardcap: string
   price: string

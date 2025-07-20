@@ -45,3 +45,7 @@ export const formCreateProjectSchema = z.object({
 export const formFilterProjectSchema = z.object({
   status: z.enum(['PENDING', 'APPROVED', 'REJECTED','DEPLOYED']),
 })
+
+export const formBuyPresale = (max: number) => z.object({
+  amount: z.coerce.number().min(1, "Amount required").max(max, `Max contribution ${max}`),
+})
