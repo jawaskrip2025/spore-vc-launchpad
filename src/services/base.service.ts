@@ -37,6 +37,7 @@ export abstract class BaseService<T, TForm = Partial<T>, TResponse = T> {
       method: 'GET',
       url: `${this.endpoint}/${id}`,
     });
+
     return response.data.data;
   }
 

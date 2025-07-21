@@ -40,6 +40,19 @@ export const useProject = (filters?: { status?: string }) => {
   });
 }
 
+export const usePublicProject = (filters?: { status?: string }) => {
+  const searchString = useSearchParams();
+  const query = {
+    ...toObjectQuery(searchString),
+    ...(filters?.status && { status: filters.status }),
+  }
+  return useQuery({
+    queryKey: ["get_project", query],
+    queryFn: () => projectService.GET_PUBLIC(query),
+    enabled: true
+  });
+}
+
 export const useProjectDetail = (id?: string) => {
   return useQuery({
     queryKey: ["get_project_by_id", id],
