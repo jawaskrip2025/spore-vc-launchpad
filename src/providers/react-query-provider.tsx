@@ -23,9 +23,7 @@ const web3AuthContextConfig: Web3AuthContextConfig = {
   web3AuthOptions: {
     clientId,
     web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
-    // IMP START - SSR
     ssr: true,
-    // IMP END - SSR
   }
 };
 // IMP END - Config
