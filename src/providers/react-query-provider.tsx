@@ -1,6 +1,5 @@
 "use client";
 
-// IMP START - Setup Web3Auth Provider
 import { Web3AuthProvider, type Web3AuthContextConfig } from "@web3auth/modal/react";
 import { IWeb3AuthState, WEB3AUTH_NETWORK } from "@web3auth/modal";
 // import {  } from "@web3auth/ws-embed";
