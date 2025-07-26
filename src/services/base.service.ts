@@ -59,12 +59,34 @@ export abstract class BaseService<T, TForm = Partial<T>, TResponse = T> {
   }
 
   async UPDATE(id: string, data: TForm): Promise<TResponse> {
-
     const response = await axiosInstance({
       method: 'PATCH',
       url: `${this.endpoint}/${id}`,
       data
     })
+    return response.data.data
+  }
+
+  /**
+  * Upload file ke endpoint
+  * @param file File atau Blob yang ingin di-upload
+  * @param uploadPath string path tambahan misalnya "/upload" (default: "/upload")
+  * @param fieldName nama field file (default: "file")
+  */
+  async UPLOAD(
+    file: File | Blob,
+    uploadPath = "/files/upload/local",
+    fieldName = "file"
+  ): Promise<TResponse> {
+    const formData = new FormData()
+    formData.append(fieldName, file)
+
+    const response = await axiosInstance.post(`${this.endpoint}${uploadPath}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+
     return response.data.data
   }
 }

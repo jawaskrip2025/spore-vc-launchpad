@@ -1,5 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.alias['@react-native-async-storage/async-storage'] = false
+    }
+    return config
+  },
   env: {
     PINATA_JWT: process.env.PINATA_JWT,
     PINATA_GATEWAY_URL: process.env.PINATA_GATEWAY_URL,
@@ -11,6 +17,12 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'maroon-delicate-coyote-528.mypinata.cloud',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'red-careful-koala-550.mypinata.cloud',
         port: '',
         pathname: '/**',
       },

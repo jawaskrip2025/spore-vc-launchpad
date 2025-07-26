@@ -1,5 +1,6 @@
 'use client'
 import { Icon } from "@/components/icon";
+import ImagePopover from "@/components/image-popover";
 import { Button } from "@/components/ui/button";
 import { toUrlAsset } from "@/lib/utils";
 import { TProject } from "@/types/project";
@@ -15,7 +16,7 @@ export const columns: ColumnDef<TProject>[] = [
       return (
         <div>{row.original.chains.map((i, index) => (
           <div key={index} className="flex gap-1 items-center">
-            <Image alt="chain" width={25} height={25} src={toUrlAsset(i.chain.logo)} />
+            <Image alt="chain" width={20} height={20} src={toUrlAsset(i.chain.logo)} />
             <div className="text-sm">{i.chain.name}</div>
           </div>
         ))}</div>
@@ -27,7 +28,25 @@ export const columns: ColumnDef<TProject>[] = [
     header: 'Logo',
     cell: ({ row }) => {
       return (
-        <Image alt="logo" width={30} height={30} src={toUrlAsset(row.original.logo)} />
+        <ImagePopover className="border h-8 w-8" src={toUrlAsset(row.original.logo)} />
+      )
+    }
+  },
+  {
+    accessorKey: 'banner',
+    header: 'Banner',
+    cell: ({ row }) => {
+      return (
+        <ImagePopover className="border h-8 w-8" src={toUrlAsset(row.original.banner)} />
+      )
+    }
+  },
+  {
+    accessorKey: 'category',
+    header: 'Category',
+    cell: ({ row }) => {
+      return (
+        <div>{row.original.category.name}</div>
       )
     }
   },

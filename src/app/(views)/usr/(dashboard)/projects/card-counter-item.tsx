@@ -2,7 +2,7 @@ import React from 'react'
 
 type CardCounterItemProps = {
   label: string
-  count: string
+  count: string | number
   unit: string
 }
 export default function CardCounterItem(props: CardCounterItemProps) {
