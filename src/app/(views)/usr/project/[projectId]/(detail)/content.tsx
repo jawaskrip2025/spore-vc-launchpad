@@ -15,7 +15,6 @@ import { useProjectDetail } from "@/modules/project/project.query"
 export default function ProjectContent() {
   const { projectId } = useParams()
   const { data, isLoading } = useProjectDetail(projectId.toString())
-  console.log({ data })
   return (
     <>
       {

@@ -11,14 +11,18 @@ type ImageDropzoneProps = {
   maxSizeMB?: number
   accept?: string[]
   className?: string
+  text?: string
+  priority?:boolean
 }
 
 export function ImageDropzone({
   onChange,
   defaultImage,
   maxSizeMB = 4,
-  accept = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'],
+  accept = ['image/png', 'image/jpeg', 'image/jpg'],
   className,
+  text,
+  priority
 }: ImageDropzoneProps) {
   const [preview, setPreview] = useState<string | null>(defaultImage ?? null)
 
@@ -61,10 +65,11 @@ export function ImageDropzone({
           width={200}
           height={200}
           className="object-contain w-full h-full"
+          priority={priority}
         />
       ) : (
         <div className="text-center text-sm text-gray-500">
-          <p>Drag & drop image here, or click to select</p>
+            <p>{text ?? 'Drag & drop image here, or click to select'}</p>
           <p className="text-xs mt-1 text-gray-400">Accepted: {accept.join(', ')}</p>
           <p className="text-xs">Max size: {maxSizeMB}MB</p>
         </div>

@@ -60,3 +60,22 @@ export const useProjectDetail = (id?: string) => {
     enabled: !!id,
   });
 };
+export const useUpdateProject = (id:string) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: TFormProject) => projectService.UPDATE(id,data),
+    onSuccess: () => {
+      toast.success('Success', {
+        description: "Success update project, waiting for review team!"
+      })
+      queryClient.invalidateQueries({
+        queryKey: ["get_project"]
+      });
+    },
+    onError: () => {
+      toast.error('Error', {
+        description: "Fail to update data!"
+      })
+    }
+  });
+};

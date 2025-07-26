@@ -70,3 +70,8 @@ export type TProject = {
   user: TProjectOwner
   reviewLogs: TReviewLog[]
 }
+
+export type TProjectCounter = {
+  status: "PENDING" | "APPROVED" | "REJECTED" | "DEPLOYED",
+  count: number
+}
