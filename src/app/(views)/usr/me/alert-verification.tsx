@@ -3,7 +3,11 @@ import { Button } from "@/components/ui/button";
 import { AlertCircleIcon } from "lucide-react";
 import Link from "next/link";
 import "@zkmelabs/widget/dist/style.css";
-import { ZkMeWidget, type Provider } from "@zkmelabs/widget";
+import {
+  verifyKycWithZkMeServices,
+  ZkMeWidget,
+  type Provider,
+} from "@zkmelabs/widget";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useChainId } from "wagmi";
@@ -53,7 +57,6 @@ export default function AlertVerification({
           programNo: programNo,
         }
       );
-      console.log("widget", widget);
       widget.on("finished", handleFinished);
       setZkMeWidget(widget);
 
@@ -82,10 +85,16 @@ export default function AlertVerification({
     }
   }
 
-  function handleFinished(walletAddressZkme: string) {
-    console.log("zkMe verification finished:", walletAddressZkme);
+  async function handleFinished(walletAddressZkme: string) {
+    const { isGrant } = await verifyKycWithZkMeServices(
+      appId!,
+      walletAddressZkme,
+      {
+        programNo: programNo,
+      }
+    );
 
-    if (walletAddressZkme === walletAddress.toLowerCase()) {
+    if (isGrant) {
       // Verification successful
       toast.success("Verification Success", {
         description: "Your account has been verified and is being processed.",
@@ -93,19 +102,17 @@ export default function AlertVerification({
       });
 
       // Optionally call API to sync verification status
+      // const userInfo = await zkmeService.GET_USER_INFO({
+      //   walletAddress: walletAddressZkme,
+      //   chainId: String(chainId),
+      // });
+      // console.log("userInfo", userInfo);
       syncVerificationStatus(walletAddressZkme);
-    } else if (walletAddressZkme !== walletAddress.toLowerCase()) {
-      // Different wallet address
-      toast.error("Validation Error", {
-        description:
-          "Verifikasi menggunakan wallet address yang berbeda.\nSilakan verifikasi dengan wallet yang sama.",
-        position: "top-right",
-      });
     } else {
       // Verification failed or denied
       toast.error("Validation Error", {
         description:
-          "Verifikasi zkKYC gagal atau dibatalkan.\nSilakan coba lagi.",
+          "Sorry, your identity information does not meet mch kyc requirements.",
         position: "top-right",
       });
     }
