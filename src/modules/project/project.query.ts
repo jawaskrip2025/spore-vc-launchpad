@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { TFormProject } from "@/types/project";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -6,24 +6,23 @@ import projectService from "./project.service";
 import { useSearchParams } from "next/navigation";
 import { toObjectQuery } from "@/lib/param";
 
-
 export const useCreateProject = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: TFormProject) => projectService.CREATE(data),
     onSuccess: () => {
-      toast.success('Success', {
-        description: "Success submit project, waiting for review team!"
-      })
+      toast.success("Success", {
+        description: "Success submit project, waiting for review team!",
+      });
       queryClient.invalidateQueries({
-        queryKey: ["get_project"]
+        queryKey: ["get_project"],
       });
     },
     onError: () => {
-      toast.error('Error', {
-        description: "Fail to submit data!"
-      })
-    }
+      toast.error("Error", {
+        description: "Fail to submit data!",
+      });
+    },
   });
 };
 
@@ -31,27 +30,27 @@ export const useProject = (filters?: { status?: string }) => {
   const searchString = useSearchParams();
   const query = {
     ...toObjectQuery(searchString),
-    ...(filters?.status && { status: filters.status })
-  }
+    ...(filters?.status && { status: filters.status }),
+  };
   return useQuery({
     queryKey: ["get_project", query],
     queryFn: () => projectService.GET(query),
-    enabled: true
+    enabled: true,
   });
-}
+};
 
 export const usePublicProject = (filters?: { status?: string }) => {
   const searchString = useSearchParams();
   const query = {
     ...toObjectQuery(searchString),
     ...(filters?.status && { status: filters.status }),
-  }
+  };
   return useQuery({
     queryKey: ["get_project", query],
     queryFn: () => projectService.GET_PUBLIC(query),
-    enabled: true
+    enabled: true,
   });
-}
+};
 
 export const useProjectDetail = (id?: string) => {
   return useQuery({
@@ -60,22 +59,22 @@ export const useProjectDetail = (id?: string) => {
     enabled: !!id,
   });
 };
-export const useUpdateProject = (id:string) => {
+export const useUpdateProject = (id: string) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (data: TFormProject) => projectService.UPDATE(id,data),
+    mutationFn: (data: TFormProject) => projectService.UPDATE(id, data),
     onSuccess: () => {
-      toast.success('Success', {
-        description: "Success update project, waiting for review team!"
-      })
+      toast.success("Success", {
+        description: "Success update project, waiting for review team!",
+      });
       queryClient.invalidateQueries({
-        queryKey: ["get_project"]
+        queryKey: ["get_project"],
       });
     },
     onError: () => {
-      toast.error('Error', {
-        description: "Fail to update data!"
-      })
-    }
+      toast.error("Error", {
+        description: "Fail to update data!",
+      });
+    },
   });
 };
